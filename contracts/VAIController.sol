@@ -228,7 +228,7 @@ contract VAIController is VAIControllerStorageG2, VAIControllerErrorReporter, Ex
     function liquidateVAIFresh(address liquidator, address borrower, uint repayAmount, VTokenInterface vTokenCollateral) internal returns (uint, uint) {
         if(address(comptroller) != address(0)) {
             /* Fail if liquidate not allowed */
-            uint allowed = comptroller.liquidateBorrowAllowed(address(this), address(vTokenCollateral), liquidaotr, borrower, repayAmount);
+            uint allowed = comptroller.liquidateBorrowAllowed(address(this), address(vTokenCollateral), liquidator, borrower, repayAmount);
             if (allowed != 0) {
                 return (failOpaque(Error.REJECTION, FailureInfo.VAI_LIQUIDATE_COMPTROLLER_REJECTION, allowed), 0);
             }
