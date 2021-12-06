@@ -1,6 +1,7 @@
 pragma solidity ^0.5.16;
 
 import "../Comptroller.sol";
+import "../ComptrollerDev.sol";
 import "../PriceOracle.sol";
 
 contract ComptrollerKovan is Comptroller {
@@ -15,11 +16,11 @@ contract ComptrollerRopsten is Comptroller {
   }
 }
 
-contract ComptrollerHarness is Comptroller {
+contract ComptrollerHarness is ComptrollerDev {
     address xvsAddress;
     uint public blockNumber;
 
-    constructor() Comptroller() public {}
+    constructor() ComptrollerDev() public {}
 
     function setVenusSupplyState(address vToken, uint224 index, uint32 blockNumber_) public {
         venusSupplyState[vToken].index = index;

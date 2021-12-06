@@ -1,12 +1,14 @@
 pragma solidity ^0.5.16;
 
-import "../VAIController.sol";
+import "../VAIControllerDev.sol";
 
-contract VAIControllerHarness is VAIController {
+contract VAIControllerHarness is VAIControllerDev {
     address vaiAddress;
     uint public blockNumber;
 
-    constructor() VAIController() public {}
+    constructor() VAIControllerDev() public {
+        admin = msg.sender;
+    }
 
     function setVenusVAIState(uint224 index, uint32 blockNumber_) public {
         venusVAIState.index = index;
