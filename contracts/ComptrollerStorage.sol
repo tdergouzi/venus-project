@@ -188,6 +188,10 @@ contract ComptrollerV5Storage is ComptrollerV4Storage {
 }
 
 contract ComptrollerVDStorage is ComptrollerV5Storage {
-    /// @notice BaseRate for VAI
-    uint256 public baseRate;
+    /// @notice BaseRate for VAI repay (scaled by 1e18)
+    uint256 public baseRateMantissa;
+    /// @notice FloatRate for VAI repay (scaled by 1e18)
+    uint256 public floatRateMantissa;
+    /// @notice Address receiver VAI
+    address public receiver;
 }

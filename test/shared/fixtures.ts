@@ -14,6 +14,7 @@ import { Fixture, deployMockContract, MockContract } from 'ethereum-waffle'
 
 export const bigNumber18 = BigNumber.from("1000000000000000000")  // 1e18
 export const bigNumber17 = BigNumber.from("100000000000000000")  //1e17
+export const bigNumber16 = BigNumber.from("10000000000000000")  //1e16
 export const bigNumber15 = BigNumber.from("1000000000000000")  //1e15
 export const bigNumber8 = BigNumber.from("100000000") // 1e8
 export const dateNow = BigNumber.from("1636429275") // 2021-11-09 11:41:15
@@ -82,8 +83,6 @@ export const comptrollerFixture: Fixture<ComptrollerFixture> = async function ([
     // await vaiUnitroller._setPendingImplementation(vaiController.address)
     // await vaiController._become(vaiUnitroller.address)
 
-    console.log('=========helloworld==========')
-
     await comptroller._setVAIController(vaiController.address)
     // console.log('=========setVAIController==========')
     await vaiController._setComptroller(comptroller.address)
@@ -111,6 +110,7 @@ export const comptrollerFixture: Fixture<ComptrollerFixture> = async function ([
     await comptroller._setTreasuryData(treasuryGuardian.address, treasuryAddress.address, BigNumber.from("100000000000000"))
     // console.log('=========_setTreasuryData==========')
     await comptroller._setVAIMintRate(BigNumber.from(10000))
+    await comptroller._setReceiver(treasuryAddress.address)
     await vaiController.initialize()
 
     const interestRateModelHarnessFactory = await ethers.getContractFactory('InterestRateModelHarness')
@@ -128,8 +128,8 @@ export const comptrollerFixture: Fixture<ComptrollerFixture> = async function ([
         wallet.address
     )) as VBep20Harness
     await priceOracle.setUnderlyingPrice(vusdt.address, bigNumber18)
+    await priceOracle.setDirectPrice(vai.address, bigNumber18)
     await comptroller._supportMarket(vusdt.address)
-    await comptroller._setCollateralFactor(vusdt.address, bigNumber17.mul(5))
 
     return { usdt, comptroller, priceOracle, xvs, vai, vaiController, vusdt };
 }
